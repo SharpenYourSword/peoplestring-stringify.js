@@ -38,6 +38,15 @@ assert.equal(
   'Mary Smith')
 ```
 
+If the name has the characters `<`, `>`, `(`, `)`, `[`, or `]`, they are
+omitted.
+
+```javascript
+assert.equal(
+  stringify({ name: '>>Mary<< )]Smith[(' }),
+  'Mary Smith')
+```
+
 A peoplestring can contain an e-mail address in angle brackets.
 
 ```javascript
