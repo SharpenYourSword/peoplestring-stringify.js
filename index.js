@@ -35,9 +35,17 @@ var formatters = [
   /* url */   surround('(', ')'),
   /* for */   surround('[', ']') ]
 
+var illegalCharacters = /[<>\(\)\[\]]/g
+
 function surround(before, after) {
   return function(string) {
-    return ( before + string.toString().trim() + after ) } }
+    return (
+      before +
+      string
+        .toString()
+        .replace(illegalCharacters, '')
+        .trim() +
+      after ) } }
 
 function stringifyPerson(person) {
   if (typeof person !== 'object') {
