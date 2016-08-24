@@ -27,36 +27,41 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module.exports = stringifyPerson
 
-var keys = [ 'name', 'email', 'url', 'for' ]
+var keys = ['name', 'email', 'url', 'for']
 
 var formatters = [
-  /* name */  surround('', ''),
+  /* name */ surround('', ''),
   /* email */ surround('<', '>'),
-  /* url */   surround('(', ')'),
-  /* for */   surround('[', ']') ]
+  /* url */ surround('(', ')'),
+  /* for */ surround('[', ']')
+]
 
 var illegalCharacters = /[<>\(\)\[\]]/g
 
-function surround(before, after) {
-  return function(string) {
+function surround (before, after) {
+  return function (string) {
     return (
       before +
       string
-        .toString()
-        .replace(illegalCharacters, '')
-        .trim() +
-      after ) } }
+      .toString()
+      .replace(illegalCharacters, '')
+      .trim() +
+      after
+    )
+  }
+}
 
-function stringifyPerson(person) {
+function stringifyPerson (person) {
   if (typeof person !== 'object') {
-    throw new Error('Invalid argument') }
+    throw new Error('Invalid argument')
+  }
   return keys
-    .reduce(
-      function(returned, key, index) {
-        return (
-          ( key in person ) ?
-            ( returned +
-              ( ( returned.length > 0 ) ? ' ' : '' ) +
-              formatters[index](person[key]) ) :
-            returned ) },
-      '') }
+  .reduce(function (returned, key, index) {
+    return (key in person)
+    ? (
+      returned + ((returned.length > 0) ? ' ' : '') +
+      formatters[index](person[key])
+    )
+    : returned
+  }, '')
+}
